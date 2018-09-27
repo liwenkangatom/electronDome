@@ -6,6 +6,11 @@ import {
   Input
 } from 'antd'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+
+const AddInputWrap = styled.div`
+  width:60px
+`
 
 export default class AddInput extends Component {
   constructor(props) {
@@ -22,19 +27,19 @@ export default class AddInput extends Component {
     })
   }
 
-  onBlurInput = () => {
-    this.setState({
-      mode: true
-    })
-  }
 
+  onCancel = () => {
+    const ParentKey = this.props.ParentKey
+  
+    this.props.cancelAdd(ParentKey)
+  }
   onPressEnterInput = (e) => {
     // if(e.keyCode === 13){
     this.setState({
       spanValue: e.target.value,
-      mode: true
-    }) //do somethings
+    },this.onCancel) //do somethings
     // }
+
   }
   onChangeInput = (e) => {
     this.setState({
@@ -48,31 +53,26 @@ export default class AddInput extends Component {
       spanValue
     } = this.state
     return ( 
-    <Fragment > {
-        mode ? < span
-        onDoubleClick = {
-          this.onDoubleClickSpan
-        } > {spanValue} </span>: 
-        <Input
-        ref = 'test'
-        autoFocus
-        value = {
-          renameValue
+    <Fragment > 
+        {mode ? 
+        <span
+        onDoubleClick = {this.onDoubleClickSpan}>
+          {spanValue} 
+        </span>: 
+        <AddInputWrap>
+          <Input
+          size='small'
+          ref = 'test'
+          autoFocus
+          value = {renameValue}
+          onChange = {this.onChangeInput}
+          onPressEnter = {this.onPressEnterInput}
+          onFocus = {this.onFocusInput}
+          onBlur = {this.onCancel} >
+          </Input>
+        </AddInputWrap>
         }
-        onChange = {
-          this.onChangeInput
-        }
-        onPressEnter = {
-          this.onPressEnterInput
-        }
-        onFocus = {
-          this.onFocusInput
-        }
-        onBlur = {
-          this.onBlurInput
-        } >
-        </Input>} 
-        </Fragment>
+    </Fragment>
       )
     }
   }

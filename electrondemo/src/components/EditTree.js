@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Tree } from 'antd';
 import ChangeInput from './ChangeInput'
 import AddInput from './AddInput'
+import RightMenu from './RightMenu';
 const TreeNode = Tree.TreeNode
 export default class EditTree extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class EditTree extends Component {
       treeData: [],
       expandKeys:[2, 3, 5],
       shownKeys: [0,1],
-      addKey:'',
+      addKey:1,
       selectedKeys: [],
       nodeMode: true,
       hasSon: false
@@ -31,7 +32,17 @@ export default class EditTree extends Component {
       treeData: this.trans(this.state.gData),
     })
   }
-
+  addKeyHandle = (key) => {
+   
+    this.setState({
+      addKey: key
+    } ,console.log('addKEY',typeof(this.state.addKey)))
+  }
+  concelAddKeyHandle = (key) => {
+    this.setState({
+      addKey: null
+    })
+  }
   isRoot = (key) => {
     const { gData } = this.state
     // const tmp = JSON.parse(JSON.stringify(gData))
@@ -58,7 +69,6 @@ export default class EditTree extends Component {
     return Array.from(new Set(showrootkeys))
   }
   trans = (gdata) => {
-     // 参数断开引用
   let a = JSON.parse(JSON.stringify(gdata))
   let r = [], hash = {}
   for (let i in a) {
@@ -80,21 +90,21 @@ export default class EditTree extends Component {
 
 
 
-  node = (key, text, son='', addKey) => {
+  node = (key, text, addKey, son='') => {
     const { shownKeys } = this.state
     return (
       (shownKeys.indexOf(key) ==-1 && this.isRoot(key) )?'':
-       <TreeNode key={key} title={<ChangeInput display={text} key={key}></ChangeInput>}>
-            {(key === addKey)?<TreeNode title={<AddInput></AddInput>}></TreeNode>:''}
+       <TreeNode key={key} title={<ChangeInput display={text} itemKey={key+''} addKey={this.addKeyHandle}></ChangeInput>}>
+            {(key === addKey)?<TreeNode title={<AddInput ParentKey={key} cancelAdd = {this.concelAddKeyHandle}></AddInput>}></TreeNode>:''}
             {son}
        </TreeNode>
     )
   }
   loop = (treeData) => treeData.map((item) => {
       if(item.children && item.children.length) {
-      return this.node(item.key, item.title, this.loop(item.children), this.state.addKey)
+      return this.node(item.key, item.title, this.state.addKey, this.loop(item.children))
     }
-    return this.node(item.key, item.title)
+    return this.node(item.key, item.title, this.state.addKey)
 
     
   })
