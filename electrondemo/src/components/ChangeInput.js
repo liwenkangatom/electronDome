@@ -66,7 +66,7 @@ export default class ChangeInput extends Component {
   // todo: 把子组件的方法写上
   onAddNode = () => {
     let key = this.props.itemKey
-    key = parseInt(key)
+    // key = parseInt(key)
     this.props.addKey(key)
   }
 

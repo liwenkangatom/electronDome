@@ -9,12 +9,12 @@ export default class EditTree extends Component {
     super(props)
     this.state = {
       gData: [
-        {key: 0, title: 'test1', pid: null},
-        {key: 1, title: 'test2', pid: null},
-        {key: 2, title: 'test3', pid: 0},
-        {key: 3, title: 'test4', pid: 1}, 
-        {key: 4, title: 'test5', pid: 0},
-        {key: 5, title: 'test6', pid: 4}
+        {key: "0", title: 'test1', pid: null},
+        {key: "1", title: 'test2', pid: null},
+        {key: '2', title: 'test3', pid: "0"},
+        {key: "3", title: 'test4', pid: "1"}, 
+        {key: "4", title: 'test5', pid: "0"},
+        {key: "5", title: 'test6', pid: "4"}
 
       ],
       treeData: [],
