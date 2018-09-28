@@ -1,4 +1,4 @@
-import uuid from './UUID'
+import uuid from '../utils/UUID'
 export default class Tag {
   constructor(title, pid) {
     this.title = title

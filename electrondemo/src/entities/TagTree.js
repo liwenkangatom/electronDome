@@ -1,10 +1,10 @@
-import TAG from './Tag'
+import TAG from '../entities/Tag'
 export default class TagTree {
   constructor(TagListArray) {
-    console.log("进入tagtree类中", TagList)
+    console.log("进入tagtree类中", TagListArray)
     this.tagList = TagListArray
     this.entityList = this.arrayToEntityList(TagListArray)
-    this.tagTree = this.transListToTree(TagList) 
+    this.tagTree = this.transListToTree(TagListArray) 
   }
   transListToTree=(List)=>{
     let a = JSON.parse(JSON.stringify(List))
@@ -32,6 +32,7 @@ export default class TagTree {
       HashList[tag.getpKey()] = tag.toPureEntity()
     })
     Tags.map((tag) => {
+      let result = []
       let hashFather = HashList[tag.getParent()]
       if (hashFather) {
         if (!hashFather.children) {
@@ -39,7 +40,7 @@ export default class TagTree {
         }
         hashFather.children.push(tag.toPureEntity())
       } else {
-        r.push(tag.toPureEntity())
+        result.push(tag.toPureEntity())
       }
       result.push(tag)
     })
@@ -59,7 +60,7 @@ export default class TagTree {
   // entityListToArray = ()
   searchNode=(Str)=>{
     let keys = []
-    const tmp = this.TagList
+    const tmp = this.tagList
     keys = tmp.map((item) => {
       if (item.title.toLowerCase().indexOf(Str.toLowerCase()) > -1) {
         return item.pid + ''
@@ -91,14 +92,13 @@ export default class TagTree {
     return this.tagTree
   }  
   getNode=(key)=> {
-    let tag = []
     let tags = this.tagList
-    for(let tag in tags){
+    for(let tag of tags){
       if(tag.key === key){
-        return 
+        return  tag
       }
     }
-    return tag
+    return null
   }
   getTree=()=>{
     return this.tagTree

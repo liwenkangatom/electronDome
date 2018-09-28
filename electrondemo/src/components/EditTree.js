@@ -3,6 +3,7 @@ import { Tree } from 'antd';
 import ChangeInput from './ChangeInput'
 import AddInput from './AddInput'
 import RightMenu from './RightMenu';
+import TagTree from '../entities/TagTree'
 const TreeNode = Tree.TreeNode
 export default class EditTree extends Component {
   constructor(props) {
@@ -15,7 +16,6 @@ export default class EditTree extends Component {
         {key: "3", title: 'test4', pid: "1"}, 
         {key: "4", title: 'test5', pid: "0"},
         {key: "5", title: 'test6', pid: "4"}
-
       ],
       treeData: [],
       expandKeys:[2, 3, 5],
@@ -26,7 +26,6 @@ export default class EditTree extends Component {
       hasSon: false
     }
   }
-  
   componentWillMount() {
     this.setState({
       treeData: this.trans(this.state.gData),
@@ -43,50 +42,51 @@ export default class EditTree extends Component {
       addKey: null
     })
   }
-  isRoot = (key) => {
-    const { gData } = this.state
-    // const tmp = JSON.parse(JSON.stringify(gData))
-    for (let item in gData) {
-      console.log('itemm', gData[item])
-      if (gData[item].key === key && gData[item].pid === null) return true
-      // else return false
-    }
-  }
-  showRootKeys = (expandKeys) => {
-    expandKeys = Array.from(new Set(expandKeys))
-    let tmp = {} 
-    let showrootkeys = []
-    const list = this.state.gData
-    list.map((item)=>{
-      tmp[item.key] = item.pid
-    })
-    expandKeys.map((item)=> { 
-      while(tmp[item] !== null) {
-        item = tmp[item]
-      }
-      showrootkeys.push(item)
-    })
-    return Array.from(new Set(showrootkeys))
-  }
-  trans = (gdata) => {
-  let a = JSON.parse(JSON.stringify(gdata))
-  let r = [], hash = {}
-  for (let i in a) {
-      hash[(a[i].key)] = a[i];
-  }
-  for (let j in a) {
-      let aVal = a[j]
-      let hashVP = hash[aVal.pid];
-      if (hashVP) {
-          // !hashVP[children] && (hashVP[children] = []);
-          if(!hashVP.children) hashVP.children = []
-          hashVP.children.push(aVal);
-      } else {
-          r.push(aVal);
-      }
-  }
-  return r;
-  }
+  tagTree = new TagTree(this.state.gData)
+  // isRoot = (key) => {
+  //   const { gData } = this.state
+  //   // const tmp = JSON.parse(JSON.stringify(gData))
+  //   for (let item in gData) {
+  //     console.log('itemm', gData[item])
+  //     if (gData[item].key === key && gData[item].pid === null) return true
+  //     // else return false
+  //   }
+  // }
+  // showRootKeys = (expandKeys) => {
+  //   expandKeys = Array.from(new Set(expandKeys))
+  //   let tmp = {} 
+  //   let showrootkeys = []
+  //   const list = this.state.gData
+  //   list.map((item)=>{
+  //     tmp[item.key] = item.pid
+  //   })
+  //   expandKeys.map((item)=> { 
+  //     while(tmp[item] !== null) {
+  //       item = tmp[item]
+  //     }
+  //     showrootkeys.push(item)
+  //   })
+  //   return Array.from(new Set(showrootkeys))
+  // }
+  // trans = (gdata) => {
+  // let a = JSON.parse(JSON.stringify(gdata))
+  // let r = [], hash = {}
+  // for (let i in a) {
+  //     hash[(a[i].key)] = a[i];
+  // }
+  // for (let j in a) {
+  //     let aVal = a[j]
+  //     let hashVP = hash[aVal.pid];
+  //     if (hashVP) {
+  //         // !hashVP[children] && (hashVP[children] = []);
+  //         if(!hashVP.children) hashVP.children = []
+  //         hashVP.children.push(aVal);
+  //     } else {
+  //         r.push(aVal);
+  //     }
+  // }
+  // return r;
+  // }
 
 
 
@@ -111,10 +111,9 @@ export default class EditTree extends Component {
   render() {
     return (
       <div>
-        <button onClick={()=>this.setState({addKey:2})}>hasSon</button>
-        <Tree>
-         {this.loop(this.state.treeData)}
-        </Tree>
+        {console.log('editTree.js tagtree entitites test , getlist',this.tagTree.getList())}
+        {console.log('edittree..js tagtree entities test, search', this.tagTree.searchNode('w'))}
+        {this.state.expandKeys}
       </div>
     )
   }

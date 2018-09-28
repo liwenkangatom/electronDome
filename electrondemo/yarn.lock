@@ -7088,7 +7088,7 @@ react-app-rewired@^1.6.2:
 
 react-contextmenu@^2.9.3:
   version "2.9.3"
-  resolved "http://registry.npm.taobao.org/react-contextmenu/download/react-contextmenu-2.9.3.tgz#f6de2e0770445c60ed14f4b37af3419e32866ba1"
+  resolved "https://registry.yarnpkg.com/react-contextmenu/-/react-contextmenu-2.9.3.tgz#f6de2e0770445c60ed14f4b37af3419e32866ba1"
   dependencies:
     classnames "^2.2.5"
     object-assign "^4.1.0"

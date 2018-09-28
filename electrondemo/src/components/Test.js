@@ -2,15 +2,15 @@ import React, { Component } from 'react'
 // import ChangeInput from './ChangeInput';
 import { ContextMenu, ContextMenuTrigger, MenuItem } from 'react-contextmenu'
 import SeachTreeNode from './SearchTreeNode'
-import TagTree from '../utils/TagTree'
+import TagTree from '../entities/TagTree'
 import uuid from '../utils/UUID'
 const list = [
-        {key: 0, title: 'test1', pid: null},
-        {key: 1, title: 'test2', pid: null},
-        {key: 2, title: 'test3', pid: 0},
-        {key: 3, title: 'test4', pid: 1}, 
-        {key: 4, title: 'test5', pid: 0},
-        {key: 5, title: 'test6', pid: 4}
+        {key: '0', title: 'test1', pid: null},
+        {key: '1', title: 'twst2', pid: null},
+        {key: '2', title: 'test3', pid: '0'},
+        {key: '3', title: 'test4', pid: '1'}, 
+        {key: '4', title: 'test5', pid: '0'},
+        {key: '5', title: 'test6', pid: '4'}
 
       ]
 class Son extends Component {
@@ -92,6 +92,9 @@ export default class Test extends Component {
       <div>
         {console.log(uuid())}
         {console.log('after', this.tree.getList())}
+        {console.log('getNode', this.tree.getNode('1'))}
+        {console.log('search', this.tree.searchNode('w'))}
+        
       </div>
     )
   }

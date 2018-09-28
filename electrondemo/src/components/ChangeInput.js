@@ -72,14 +72,19 @@ export default class ChangeInput extends Component {
 
   render() {
     const { mode, renameValue, spanValue } = this.state
-    const { addKey } = this.props
+    const { addKey, searchValue } = this.props
+    const index = spanValue.indexOf(searchValue)
+    const beforeStr = spanValue.substr(0, index)
+    const afterStr = spanValue.substr(index + searchValue.length)
     return (
       <Fragment>
       
       <RightClickMenu itemKey={this.props.itemKey}>
         {mode?<span 
         onDoubleClick={this.onDoubleClickSpan}>
-          {spanValue}
+          {beforeStr}
+          <span style={{color: '#f50'}}>{searchValue}</span>
+          {afterStr}
         </span>:
         <InputWrap>
           <Input 
