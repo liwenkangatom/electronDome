@@ -7,6 +7,7 @@ export default class TagTree {
     this.tagTree = this.transListToTree(TagListArray) 
   }
   transListToTree=(List)=>{
+    console.log('transListToTree', List)
     let a = JSON.parse(JSON.stringify(List))
     let r = [], hash = {}
     for (let i in a) {
@@ -23,6 +24,7 @@ export default class TagTree {
             r.push(aVal);
         }
     }
+    console.log('transListToTreeEnd', r)
     return r;
   }
   tansEntitiesToTree = (Tags) => {

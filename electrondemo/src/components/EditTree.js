@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Tree } from 'antd';
 import ChangeInput from './ChangeInput'
 import AddInput from './AddInput'
-import RightMenu from './RightMenu';
+// import RightMenu from './RightMenu';
 import TagTree from '../entities/TagTree'
 const TreeNode = Tree.TreeNode
 export default class EditTree extends Component {
@@ -24,12 +24,18 @@ export default class EditTree extends Component {
       selectedKeys: [],
       nodeMode: true,
       hasSon: false
-    }
+    } 
+    
   }
   componentWillMount() {
+    this.tagTree = new TagTree(this.state.gData)
+    const tree = this.tagTree.getTree()
+    console.log('cwm', tree)
     this.setState({
-      treeData: this.trans(this.state.gData),
+      // treeData: this.trans(this.state.gData),
+      treeData: tree,
     })
+   console.log('treeData',this.state)
   }
   addKeyHandle = (key) => {
    
@@ -42,7 +48,7 @@ export default class EditTree extends Component {
       addKey: null
     })
   }
-  tagTree = new TagTree(this.state.gData)
+ 
   // isRoot = (key) => {
   //   const { gData } = this.state
   //   // const tmp = JSON.parse(JSON.stringify(gData))
