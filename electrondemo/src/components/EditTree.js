@@ -7,7 +7,7 @@ import TagTree from '../entities/TagTree'
 const TreeNode = Tree.TreeNode
 export default class EditTree extends Component {
   constructor(props) {
-    super(props)
+    super(props) 
     this.state = {
       gData: [
         {key: "0", title: 'test1', pid: null},
@@ -25,17 +25,12 @@ export default class EditTree extends Component {
       nodeMode: true,
       hasSon: false
     } 
-    
   }
   componentWillMount() {
-    this.tagTree = new TagTree(this.state.gData)
-    const tree = this.tagTree.getTree()
-    console.log('cwm', tree)
     this.setState({
-      // treeData: this.trans(this.state.gData),
-      treeData: tree,
+      expandKeys:[]
     })
-   console.log('treeData',this.state)
+
   }
   addKeyHandle = (key) => {
    
